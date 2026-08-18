@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SPY // SECRET ACCESS</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Background Effects -->
+
+    <div class="background-grid"></div>
+
+    <div class="scanline"></div>
+
+    <div class="noise"></div>
+
+
+    <!-- Main -->
+
+    <main class="main-container">
+
+
+        <!-- Logo -->
+
+        <div class="logo-area">
+
+            <div class="logo-circle">
+                S
+            </div>
+
+            <div class="logo-text">
+
+                <span>
+                    SPY
+                </span>
+
+                <small>
+                    THAILAND // SECRET NETWORK
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            <span>
+                SECURE CONNECTION
+            </span>
+
+        </div>
+
+
+        <!-- Main Card -->
+
+        <section class="access-card">
+
+
+            <div class="card-header">
+
+                <span class="terminal-symbol">
+                    >
+                </span>
+
+                <span>
+                    SECRET ACCESS
+                </span>
+
+                <span class="terminal-cursor">
+                    _
+                </span>
+
+            </div>
+
+
+            <div class="card-content">
+
+
+                <h1>
+                    กรอกรหัสผ่านลับ
+                </h1>
+
+
+                <p class="subtitle">
+
+                    ขององค์กรเรา เพื่อเข้าร่วมจุดอันมืดมิด
+                    <br>
+
+                    <strong>
+                        by สปายลับไทย
+                    </strong>
+
+                </p>
+
+
+                <!-- Warning -->
+
+                <div class="warning-box">
+
+                    <span class="warning-icon">
+                        ⚠
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            RESTRICTED AREA
+                        </strong>
+
+                        <p>
+                            เฉพาะผู้ได้รับอนุญาตเท่านั้น
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Passwords -->
+
+                <div class="password-section">
+
+
+                    <div class="password-title">
+
+                        <span>
+                            ENTER 4 SECRET CODES
+                        </span>
+
+                        <span
+                            id="attemptDisplay"
+                            class="attempt-display"
+                        >
+                            ATTEMPTS: 0 / 13
+                        </span>
+
+                    </div>
+
+
+                    <!-- Code 1 -->
+
+                    <div class="code-group">
+
+                        <label>
+                            SECRET CODE 01
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="code1"
+                                maxlength="20"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+
+                            <button
+                                type="button"
+                                class="eye-button"
+                                data-target="code1"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Code 2 -->
+
+                    <div class="code-group">
+
+                        <label>
+                            SECRET CODE 02
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="code2"
+                                maxlength="30"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+
+                            <button
+                                type="button"
+                                class="eye-button"
+                                data-target="code2"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Code 3 -->
+
+                    <div class="code-group">
+
+                        <label>
+                            SECRET CODE 03
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="code3"
+                                maxlength="30"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+
+                            <button
+                                type="button"
+                                class="eye-button"
+                                data-target="code3"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Code 4 -->
+
+                    <div class="code-group">
+
+                        <label>
+                            SECRET CODE 04
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="code4"
+                                maxlength="20"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+
+                            <button
+                                type="button"
+                                class="eye-button"
+                                data-target="code4"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Confirm -->
+
+                <button
+                    id="verifyButton"
+                    class="verify-button"
+                    type="button"
+                >
+
+                    <span class="button-icon">
+                        ⟫
+                    </span>
+
+                    ยืนยันรหัสลับ
+
+                </button>
+
+
+                <!-- Message -->
+
+                <div
+                    id="messageBox"
+                    class="message-box"
+                ></div>
+
+
+                <!-- Ban -->
+
+                <div
+                    id="banBox"
+                    class="ban-box"
+                >
+
+                    <div class="ban-title">
+                        ACCESS TEMPORARILY BLOCKED
+                    </div>
+
+                    <div
+                        id="banTimer"
+                        class="ban-timer"
+                    >
+                        40:00
+                    </div>
+
+                    <p>
+                        ระบบรักษาความปลอดภัยตรวจพบ
+                        การกรอกรหัสผิดหลายครั้ง
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Card Footer -->
+
+            <div class="card-footer">
+
+                <span>
+                    ENCRYPTION: ACTIVE
+                </span>
+
+                <span>
+                    NODE: TH-SPY-01
+                </span>
+
+                <span>
+                    STATUS: ONLINE
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- Video -->
+
+        <section class="video-section">
+
+    <div class="video-header">
+
+        <span>
+            CLASSIFIED VIDEO
+        </span>
+
+        <span>
+            FILE:// SPY-01.MP4
+        </span>
+
+    </div>
+
+
+    <div class="video-frame">
+
+        <video
+            id="spyVideo"
+            preload="metadata"
+            playsinline
+        >
+
+            <source
+                src="./media/PASULOL กุ่ย นาย ฮอล และชีวิตติดหน่วง [The Afternoon Show with Nuang].mp4"
+                type="video/mp4"
+            >
+
+            เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+
+        </video>
+
+
+        <!-- Overlay ตอนยังไม่ได้เล่น -->
+
+        <div
+            id="videoStartOverlay"
+            class="video-start-overlay"
+        >
+
+            <div class="start-icon">
+                ▶
+            </div>
+
+            <div>
+                กด PLAY เพื่อเริ่มรับชม
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Controls -->
+
+    <div class="video-controls">
+
+
+        <!-- Play / Pause -->
+
+        <button
+            id="playPauseButton"
+            type="button"
+        >
+            ▶ เล่น
+        </button>
+
+
+        <!-- Restart -->
+
+        <button
+            id="restartButton"
+            type="button"
+        >
+            ↻ เริ่มใหม่
+        </button>
+
+
+        <!-- Progress -->
+
+        <div class="video-progress">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+
+        </div>
+
+
+        <!-- Time -->
+
+        <span
+            id="videoTime"
+            class="video-time"
+        >
+            00:00 / 00:00
+        </span>
+
+
+    </div>
+
+
+    <p class="video-note">
+
+        ※ กรุณารับชมไฟล์วิดีโอจนจบ
+        สามารถหยุดและเล่นต่อได้
+        แต่ไม่สามารถข้ามส่วนที่ยังไม่ได้รับชม
+
+    </p>
+
+</section>
+
+
+        <footer>
+
+            <span>
+                © SPY THAILAND
+            </span>
+
+            <span>
+                ALL SYSTEMS MONITORED
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+    <script src="./js/app.js"></script>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="second-auth" id="secondAuth">
+
+    <div class="second-auth-box">
+
+        <div class="second-auth-icon">
+            🔐
+        </div>
+
+        <h2>
+            ยืนยันตัวตนชั้นที่ 2
+        </h2>
+
+        <p>
+            กรุณากรอกรหัสลับทั้ง 4 ช่องอีกครั้ง
+        </p>
+
+        <div class="second-code-list">
+
+            <input
+                type="password"
+                id="verifyCode1"
+                placeholder="SECRET 01"
+                autocomplete="off"
+            >
+
+            <input
+                type="password"
+                id="verifyCode2"
+                placeholder="SECRET 02"
+                autocomplete="off"
+            >
+
+            <input
+                type="password"
+                id="verifyCode3"
+                placeholder="SECRET 03"
+                autocomplete="off"
+            >
+
+            <input
+                type="password"
+                id="verifyCode4"
+                placeholder="SECRET 04"
+                autocomplete="off"
+            >
+
+        </div>
+
+        <div
+            id="secondMessage"
+            class="second-message"
+        ></div>
+
+        <div class="second-buttons">
+
+            <button
+                id="secondCancel"
+                type="button"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                id="secondConfirm"
+                type="button"
+            >
+                ยืนยันชั้นที่ 2
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>

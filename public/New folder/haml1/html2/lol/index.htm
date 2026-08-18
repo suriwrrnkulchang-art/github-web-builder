@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACK MARKET</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@500;700;900&display=swap');
+
+:root{
+    --green:#00ff88;
+    --green2:#00c96b;
+    --red:#ff1744;
+    --red2:#b00020;
+    --black:#050505;
+    --black2:#0b0f0d;
+    --card:#101713;
+    --border:rgba(0,255,136,.22);
+    --text:#f2fff8;
+    --muted:#7c9488;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:'Kanit',sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(0,255,136,.08),transparent 25%),
+        radial-gradient(circle at 80% 80%,rgba(255,23,68,.08),transparent 25%),
+        #030504;
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND GRID */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.12;
+    background-image:
+        linear-gradient(rgba(0,255,136,.15) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,255,136,.15) 1px,transparent 1px);
+    background-size:45px 45px;
+    mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+/* PARTICLES */
+
+#particles{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+}
+
+.particle{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:var(--green);
+    border-radius:50%;
+    box-shadow:0 0 12px var(--green);
+    animation:float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+    15%{opacity:1}
+    85%{opacity:1}
+    to{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:rgba(3,5,4,.82);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    max-width:1400px;
+    margin:auto;
+    min-height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+}
+
+.logo{
+    font-family:'Orbitron';
+    font-size:24px;
+    font-weight:900;
+    color:var(--green);
+    letter-spacing:2px;
+    text-shadow:
+        0 0 10px rgba(0,255,136,.8),
+        0 0 30px rgba(0,255,136,.35);
+}
+
+.logo span{
+    color:var(--red);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.token{
+    border:1px solid var(--border);
+    background:rgba(0,255,136,.06);
+    padding:10px 18px;
+    border-radius:14px;
+    color:var(--green);
+    box-shadow:0 0 25px rgba(0,255,136,.08);
+}
+
+.btn{
+    border:1px solid var(--border);
+    color:white;
+    background:#0b100d;
+    padding:11px 17px;
+    border-radius:12px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    border-color:var(--green);
+    box-shadow:0 0 25px rgba(0,255,136,.18);
+}
+
+.btn-green{
+    background:linear-gradient(135deg,#00ff88,#00a85c);
+    color:#001b0e;
+    border:0;
+    font-weight:700;
+}
+
+.btn-red{
+    background:linear-gradient(135deg,#ff1744,#8e001f);
+    border:0;
+    font-weight:700;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    max-width:1400px;
+    margin:auto;
+    padding:45px 25px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:420px;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    padding:60px 20px;
+}
+
+.hero h1{
+    font-family:'Orbitron';
+    font-size:clamp(40px,7vw,90px);
+    line-height:1;
+    letter-spacing:5px;
+    color:white;
+    text-shadow:
+        0 0 15px rgba(0,255,136,.6),
+        0 0 50px rgba(0,255,136,.2);
+    animation:pulseTitle 3s infinite alternate;
+}
+
+.hero h1 span{
+    color:var(--green);
+}
+
+.hero p{
+    margin-top:22px;
+    color:var(--muted);
+    font-size:18px;
+}
+
+@keyframes pulseTitle{
+    from{
+        text-shadow:0 0 10px rgba(0,255,136,.4);
+    }
+    to{
+        text-shadow:
+        0 0 15px rgba(0,255,136,.8),
+        0 0 70px rgba(0,255,136,.3);
+    }
+}
+
+/* CATEGORY */
+
+.section-title{
+    font-family:'Orbitron';
+    font-size:22px;
+    margin-bottom:20px;
+    color:var(--green);
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:15px;
+    margin-bottom:45px;
+}
+
+.category{
+    min-height:120px;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:linear-gradient(145deg,#101712,#070a08);
+    cursor:pointer;
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.category::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:var(--green);
+    filter:blur(70px);
+    opacity:.1;
+    right:-30px;
+    bottom:-30px;
+}
+
+.category:hover{
+    transform:translateY(-7px) scale(1.02);
+    border-color:var(--green);
+    box-shadow:
+        0 15px 50px rgba(0,255,136,.1),
+        inset 0 0 30px rgba(0,255,136,.04);
+}
+
+.category .icon{
+    font-size:34px;
+}
+
+.category h3{
+    margin-top:8px;
+}
+
+/* PRODUCTS */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    gap:20px;
+}
+
+.product{
+    border:1px solid rgba(0,255,136,.15);
+    background:linear-gradient(150deg,#101612,#070908);
+    border-radius:22px;
+    overflow:hidden;
+    transition:.35s;
+    position:relative;
+}
+
+.product:hover{
+    transform:translateY(-8px);
+    border-color:rgba(0,255,136,.5);
+    box-shadow:0 20px 60px rgba(0,255,136,.12);
+}
+
+.product-image{
+    height:170px;
+    display:grid;
+    place-items:center;
+    font-size:65px;
+    background:
+        radial-gradient(circle,rgba(0,255,136,.12),transparent 60%),
+        #080d0a;
+}
+
+.product-content{
+    padding:20px;
+}
+
+.badge{
+    display:inline-block;
+    font-size:12px;
+    color:var(--green);
+    border:1px solid rgba(0,255,136,.3);
+    border-radius:999px;
+    padding:4px 9px;
+    margin-bottom:10px;
+}
+
+.product h3{
+    font-size:20px;
+}
+
+.product-description{
+    min-height:45px;
+    color:var(--muted);
+    font-size:14px;
+    margin:7px 0 15px;
+}
+
+.price{
+    color:var(--green);
+    font-family:'Orbitron';
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+/* CART */
+
+.cart-panel{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:min(420px,calc(100% - 40px));
+    max-height:75vh;
+    background:rgba(8,12,10,.96);
+    border:1px solid var(--green);
+    border-radius:25px;
+    z-index:200;
+    box-shadow:0 0 80px rgba(0,255,136,.18);
+    backdrop-filter:blur(20px);
+    transform:translateY(130%);
+    transition:.45s cubic-bezier(.2,.8,.2,1);
+}
+
+.cart-panel.open{
+    transform:translateY(0);
+}
+
+.cart-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    border-bottom:1px solid var(--border);
+}
+
+.cart-items{
+    max-height:45vh;
+    overflow:auto;
+    padding:15px;
+}
+
+.cart-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px;
+    margin-bottom:10px;
+    border:1px solid rgba(0,255,136,.12);
+    border-radius:15px;
+    background:#0b100d;
+}
+
+.cart-item input{
+    accent-color:var(--green);
+    width:18px;
+    height:18px;
+}
+
+.cart-item-info{
+    flex:1;
+}
+
+.cart-item-info small{
+    color:var(--muted);
+}
+
+.cart-foot{
+    padding:20px;
+    border-top:1px solid var(--border);
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Orbitron';
+    margin-bottom:15px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:none;
+    place-items:center;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(10px);
+    padding:20px;
+}
+
+.modal.show{
+    display:grid;
+    animation:fadeIn .25s;
+}
+
+.modal-box{
+    width:min(700px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border:1px solid var(--green);
+    background:#080d0a;
+    border-radius:28px;
+    padding:30px;
+    box-shadow:
+        0 0 100px rgba(0,255,136,.18),
+        inset 0 0 50px rgba(0,255,136,.03);
+    animation:modalIn .35s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+@keyframes modalIn{
+    from{
+        transform:translateY(30px) scale(.94);
+        opacity:0;
+    }
+    to{
+        transform:none;
+        opacity:1;
+    }
+}
+
+.close{
+    float:right;
+    background:none;
+    border:0;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+}
+
+/* WHEEL */
+
+.wheel-wrap{
+    display:grid;
+    place-items:center;
+    padding:25px;
+}
+
+.wheel{
+    width:min(330px,75vw);
+    aspect-ratio:1;
+    border-radius:50%;
+    border:10px solid #151d18;
+    position:relative;
+    box-shadow:
+        0 0 30px rgba(0,255,136,.3),
+        0 0 100px rgba(0,255,136,.1);
+    overflow:hidden;
+    transition:transform 5s cubic-bezier(.12,.75,.13,1);
+}
+
+.wheel-center{
+    position:absolute;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background:#050505;
+    border:4px solid var(--green);
+    z-index:5;
+}
+
+.pointer{
+    position:absolute;
+    top:-3px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    color:var(--red);
+    font-size:42px;
+}
+
+/* TOAST */
+
+#toast{
+    position:fixed;
+    top:90px;
+    right:20px;
+    z-index:1000;
+    min-width:280px;
+    max-width:420px;
+    padding:18px;
+    border-radius:16px;
+    border:1px solid var(--green);
+    background:#08100b;
+    box-shadow:0 0 40px rgba(0,255,136,.2);
+    transform:translateX(130%);
+    transition:.35s;
+}
+
+#toast.show{
+    transform:translateX(0);
+}
+
+#toast.error{
+    border-color:var(--red);
+}
+
+/* CODE RESULT */
+
+.code-box{
+    margin-top:15px;
+    border:1px solid rgba(0,255,136,.3);
+    background:#050805;
+    border-radius:15px;
+    padding:15px;
+}
+
+.code{
+    font-family:monospace;
+    color:var(--green);
+    word-break:break-all;
+    letter-spacing:1px;
+}
+
+.row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+@media(max-width:700px){
+    .nav{
+        padding:0 12px;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+    .token{
+        padding:8px 10px;
+        font-size:13px;
+    }
+
+    .container{
+        padding:25px 14px;
+    }
+
+    .hero{
+        min-height:330px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles"></div>
+
+<header>
+    <div class="nav">
+        <div class="logo">BLACK<span>MARKET</span></div>
+
+        <div class="nav-actions">
+            <div class="token">
+                🪙 <span id="tokenBalance">999999999999</span>
+            </div>
+
+            <button class="btn" onclick="openCodes()">
+                🔐 รหัสของฉัน
+            </button>
+
+            <button class="btn btn-green" onclick="toggleCart()">
+                🛒 ตะกร้า <span id="cartCount">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div>
+            <h1>BLACK<span>MARKET</span></h1>
+            <p>ROBLOX • API • GAMEPASS • DEVIL FRUIT • RANDOM</p>
+
+            <div style="margin-top:25px">
+                <button class="btn btn-green" onclick="scrollToShop()">
+                    ENTER MARKET
+                </button>
+
+                <button class="btn btn-red" onclick="openRedeemPage()">
+                    🔓 REDEEM CODE
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop">
+
+        <div class="section-title">SELECT CATEGORY</div>
+
+        <div class="categories">
+
+            <div class="category" onclick="filterProducts('ไก่ตัน')">
+                <div class="icon">🐔</div>
+                <h3>ซื้อไก่ตัน</h3>
+            </div>
+
+            <div class="category" onclick="filterProducts('โรบัค')">
+                <div class="icon">💰</div>
+                <h3>ซื้อโรบัค</h3>
+            </div>
+
+            <div class="category" onclick="filterProducts('API')">
+                <div class="icon">🤖</div>
+                <h3>ซื้อ API</h3>
+            </div>
+
+            <div class="category" onclick="filterProducts('เกมพาส')">
+                <div class="icon">🎮</div>
+                <h3>ซื้อเกมพาส</h3>
+            </div>
+
+            <div class="category" onclick="filterProducts('ผล')">
+                <div class="icon">🍎</div>
+                <h3>ซื้อผล</h3>
+            </div>
+
+            <div class="category" onclick="openWheel()">
+                <div class="icon">🎰</div>
+                <h3>สุ่มผล</h3>
+            </div>
+
+            <div class="category" onclick="filterProducts('ทั้งหมด')">
+                <div class="icon">🔥</div>
+                <h3>สินค้าทั้งหมด</h3>
+            </div>
+
+        </div>
+
+        <div class="section-title">PRODUCTS</div>
+
+        <div id="products" class="products"></div>
+
+    </section>
+
+</main>
+
+<!-- CART -->
+
+<div id="cartPanel" class="cart-panel">
+
+    <div class="cart-head">
+        <strong>🛒 SHOPPING CART</strong>
+        <button class="close" onclick="toggleCart()">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-foot">
+
+        <div class="row" style="margin-bottom:15px">
+            <button class="btn" onclick="selectAllCart(true)">
+                เลือกทั้งหมด
+            </button>
+
+            <button class="btn" onclick="selectAllCart(false)">
+                ยกเลิกทั้งหมด
+            </button>
+        </div>
+
+        <div class="total">
+            <span>TOTAL</span>
+            <span><span id="cartTotal">0</span> TOKEN</span>
+        </div>
+
+        <button class="btn btn-green" style="width:100%" onclick="checkoutSelected()">
+            ยืนยันรายการที่เลือก
+        </button>
+    </div>
+
+</div>
+
+<!-- WHEEL MODAL -->
+
+<div id="wheelModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('wheelModal')">×</button>
+
+        <h2 style="color:var(--green);font-family:Orbitron">
+            DEVIL FRUIT ROULETTE
+        </h2>
+
+        <p style="color:var(--muted);margin-top:8px">
+            ค่าใช้จ่ายต่อการสุ่ม: <b style="color:var(--green)">30 TOKEN</b>
+        </p>
+
+        <div class="wheel-wrap">
+
+            <div style="position:relative">
+
+                <div class="pointer">▼</div>
+
+                <div id="wheel" class="wheel">
+                    <div style="
+                        position:absolute;
+                        inset:0;
+                        display:grid;
+                        place-items:center;
+                        font-size:45px;
+                    ">
+                        🍎
+                    </div>
+
+                    <div class="wheel-center"></div>
+                </div>
+
+            </div>
+
+            <button
+                id="spinButton"
+                class="btn btn-green"
+                style="margin-top:25px;padding:15px 40px"
+                onclick="spinWheel()">
+                🎰 SPIN 30 TOKEN
+            </button>
+
+        </div>
+
+        <div id="spinResult"></div>
+
+    </div>
+</div>
+
+<!-- CODES MODAL -->
+
+<div id="codesModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('codesModal')">×</button>
+
+        <h2 style="color:var(--green);font-family:Orbitron">
+            🔐 MY CODES
+        </h2>
+
+        <div id="myCodes" style="margin-top:20px"></div>
+
+    </div>
+
+</div>
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+<script>
+
+/* ============================
+   CONFIG
+============================ */
+
+const API_URL = "https://script.google.com/macros/s/AKfycbxKEiEOPfuaTGGnCuRk50PLCSQJpQ1WQ_8PkR9Y_J3VF7YvaZ09nFQOsBjRfV9qugTu/exec";
+
+
+/* ============================
+   LOCAL STATE
+============================ */
+
+let tokenBalance = Number(
+    localStorage.getItem("tokenBalance") || 999999999999
+);
+
+let cart = JSON.parse(
+    localStorage.getItem("cart") || "[]"
+);
+
+let myCodes = JSON.parse(
+    localStorage.getItem("myCodes") || "[]"
+);
+
+
+/* ============================
+   PRODUCTS
+============================ */
+
+const products = [
+
+    {
+        id:"chicken-1",
+        category:"ไก่ตัน",
+        name:"Blox Fruits ไก่ตัน",
+        icon:"🐔",
+        description:"ไก่ตัน Blox Fruits",
+        price:500
+    },
+
+    {
+        id:"robux-400",
+        category:"โรบัค",
+        name:"Robux 400",
+        icon:"💰",
+        description:"Robux Package",
+        price:450
+    },
+
+    {
+        id:"robux-800",
+        category:"โรบัค",
+        name:"Robux 800",
+        icon:"💎",
+        description:"Robux Package",
+        price:850
+    },
+
+    {
+        id:"api-gpt",
+        category:"API",
+        name:"GPT Pro Max API",
+        icon:"🤖",
+        description:"API Access",
+        price:1500
+    },
+
+    {
+        id:"api-google",
+        category:"API",
+        name:"Google AI Pro Max API",
+        icon:"🧠",
+        description:"AI API Access",
+        price:1300
+    },
+
+    {
+        id:"api-sky",
+        category:"API",
+        name:"AI Sky API",
+        icon:"☁️",
+        description:"AI Sky API",
+        price:900
+    },
+
+    {
+        id:"gamepass-1",
+        category:"เกมพาส",
+        name:"Blox Fruits GamePass",
+        icon:"🎮",
+        description:"GamePass",
+        price:1200
+    },
+
+    {
+        id:"fruit-leopard",
+        category:"ผล",
+        name:"Leopard Fruit",
+        icon:"🐆",
+        description:"Devil Fruit",
+        price:700
+    },
+
+    {
+        id:"fruit-dragon",
+        category:"ผล",
+        name:"Dragon Fruit",
+        icon:"🐉",
+        description:"Devil Fruit",
+        price:1500
+    },
+
+    {
+        id:"fruit-kitsune",
+        category:"ผล",
+        name:"Kitsune Fruit",
+        icon:"🦊",
+        description:"Devil Fruit",
+        price:1800
+    },
+
+    {
+        id:"fruit-dough",
+        category:"ผล",
+        name:"Dough Fruit",
+        icon:"🍩",
+        description:"Devil Fruit",
+        price:800
+    },
+
+    {
+        id:"fruit-light",
+        category:"ผล",
+        name:"Light Fruit",
+        icon:"💡",
+        description:"Devil Fruit",
+        price:300
+    },
+
+    {
+        id:"fruit-dark",
+        category:"ผล",
+        name:"Dark Fruit",
+        icon:"🌑",
+        description:"Devil Fruit",
+        price:350
+    }
+
+];
+
+
+/* ============================
+   INIT
+============================ */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    createParticles();
+
+    updateTokens();
+
+    renderProducts();
+
+    renderCart();
+
+});
+
+
+/* ============================
+   PARTICLES
+============================ */
+
+function createParticles(){
+
+    const container = document.getElementById("particles");
+
+    for(let i=0;i<70;i++){
+
+        const p=document.createElement("div");
+
+        p.className="particle";
+
+        p.style.left=Math.random()*100+"%";
+
+        p.style.animationDuration=(5+Math.random()*12)+"s";
+
+        p.style.animationDelay=(-Math.random()*15)+"s";
+
+        container.appendChild(p);
+
+    }
+
+}
+
+
+/* ============================
+   PRODUCT RENDER
+============================ */
+
+function renderProducts(list=products){
+
+    const container=document.getElementById("products");
+
+    container.innerHTML="";
+
+    list.forEach(product=>{
+
+        const div=document.createElement("div");
+
+        div.className="product";
+
+        div.innerHTML=`
+
+            <div class="product-image">
+                ${product.icon}
+            </div>
+
+            <div class="product-content">
+
+                <span class="badge">
+                    ${escapeHTML(product.category)}
+                </span>
+
+                <h3>${escapeHTML(product.name)}</h3>
+
+                <div class="product-description">
+                    ${escapeHTML(product.description)}
+                </div>
+
+                <div class="price">
+                    ${product.price.toLocaleString()} TOKEN
+                </div>
+
+                <button
+                    class="btn btn-green"
+                    style="width:100%"
+                    onclick="addToCart('${product.id}')">
+
+                    🛒 เพิ่มลงตะกร้า
+
+                </button>
+
+            </div>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* ============================
+   FILTER
+============================ */
+
+function filterProducts(category){
+
+    if(category==="ทั้งหมด"){
+
+        renderProducts(products);
+
+        return;
+
+    }
+
+    renderProducts(
+        products.filter(x=>x.category===category)
+    );
+
+    scrollToShop();
+
+}
+
+
+/* ============================
+   CART
+============================ */
+
+function addToCart(id){
+
+    const product=products.find(x=>x.id===id);
+
+    if(!product) return;
+
+    cart.push({
+        cartId:crypto.randomUUID(),
+        productId:product.id,
+        name:product.name,
+        price:product.price,
+        selected:true
+    });
+
+    saveCart();
+
+    renderCart();
+
+    showToast("เพิ่มสินค้าเข้าตะกร้าแล้ว");
+
+}
+
+
+function removeCartItem(cartId){
+
+    cart=cart.filter(x=>x.cartId!==cartId);
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+function renderCart(){
+
+    const container=document.getElementById("cartItems");
+
+    document.getElementById("cartCount").textContent=cart.length;
+
+    if(cart.length===0){
+
+        container.innerHTML=`
+            <div style="
+                text-align:center;
+                padding:40px;
+                color:var(--muted)
+            ">
+                ตะกร้าว่าง
+            </div>
+        `;
+
+        updateCartTotal();
+
+        return;
+    }
+
+    container.innerHTML="";
+
+    cart.forEach(item=>{
+
+        const div=document.createElement("div");
+
+        div.className="cart-item";
+
+        div.innerHTML=`
+
+            <input
+                type="checkbox"
+                ${item.selected ? "checked":""}
+                onchange="toggleCartItem('${item.cartId}',this.checked)"
+            >
+
+            <div class="cart-item-info">
+
+                <b>${escapeHTML(item.name)}</b>
+
+                <br>
+
+                <small>
+                    ${item.price.toLocaleString()} TOKEN
+                </small>
+
+            </div>
+
+            <button
+                class="btn btn-red"
+                onclick="removeCartItem('${item.cartId}')">
+
+                ×
+
+            </button>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+    updateCartTotal();
+
+}
+
+
+function toggleCartItem(cartId,value){
+
+    const item=cart.find(x=>x.cartId===cartId);
+
+    if(item){
+
+        item.selected=value;
+
+        saveCart();
+
+        updateCartTotal();
+
+    }
+
+}
+
+
+function selectAllCart(value){
+
+    cart.forEach(x=>x.selected=value);
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+function updateCartTotal(){
+
+    const total=cart
+        .filter(x=>x.selected)
+        .reduce((sum,x)=>sum+x.price,0);
+
+    document.getElementById("cartTotal").textContent=
+        total.toLocaleString();
+
+}
+
+
+function saveCart(){
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* ============================
+   CHECKOUT
+============================ */
+
+async function checkoutSelected(){
+
+    const selected=cart.filter(x=>x.selected);
+
+    if(selected.length===0){
+
+        showToast("กรุณาเลือกรายการก่อน",true);
+
+        return;
+
+    }
+
+    const total=selected.reduce(
+        (sum,x)=>sum+x.price,
+        0
+    );
+
+    if(tokenBalance<total){
+
+        showToast("TOKEN ไม่เพียงพอ",true);
+
+        return;
+
+    }
+
+    const confirmed=confirm(
+        `ยืนยันซื้อ ${selected.length} รายการ\n`+
+        `รวม ${total.toLocaleString()} TOKEN ?`
+    );
+
+    if(!confirmed) return;
+
+    try{
+
+        showToast("กำลังสร้างรหัส...");
+
+        const response=await apiRequest({
+
+            action:"purchase",
+
+            items:selected,
+
+            total:total
+
+        });
+
+        if(!response.success){
+
+            throw new Error(
+                response.message || "Purchase failed"
+            );
+
+        }
+
+        tokenBalance-=total;
+
+        updateTokens();
+
+        selected.forEach(item=>{
+
+            myCodes.push({
+                code:response.codes[
+                    selected.indexOf(item)
+                ],
+                product:item.name,
+                price:item.price,
+                createdAt:new Date().toISOString()
+            });
+
+        });
+
+        localStorage.setItem(
+            "myCodes",
+            JSON.stringify(myCodes)
+        );
+
+        cart=cart.filter(x=>!x.selected);
+
+        saveCart();
+
+        renderCart();
+
+        showToast(
+            `ซื้อสำเร็จ ${response.codes.length} รายการ`
+        );
+
+        openCodes();
+
+    }catch(error){
+
+        console.error(error);
+
+        showToast(
+            error.message || "เกิดข้อผิดพลาด",
+            true
+        );
+
+    }
+
+}
+
+
+/* ============================
+   WHEEL
+============================ */
+
+const fruits=[
+    {
+        name:"Leopard Fruit",
+        icon:"🐆",
+        price:700
+    },
+    {
+        name:"Dragon Fruit",
+        icon:"🐉",
+        price:1500
+    },
+    {
+        name:"Kitsune Fruit",
+        icon:"🦊",
+        price:1800
+    },
+    {
+        name:"Dough Fruit",
+        icon:"🍩",
+        price:800
+    },
+    {
+        name:"Light Fruit",
+        icon:"💡",
+        price:300
+    },
+    {
+        name:"Dark Fruit",
+        icon:"🌑",
+        price:350
+    },
+    {
+        name:"Phoenix Fruit",
+        icon:"🔥",
+        price:600
+    },
+    {
+        name:"Ice Fruit",
+        icon:"❄️",
+        price:250
+    }
+];
+
+let spinning=false;
+
+function openWheel(){
+
+    document.getElementById("wheelModal")
+        .classList.add("show");
+
+}
+
+
+function spinWheel(){
+
+    if(spinning) return;
+
+    const cost=30;
+
+    if(tokenBalance<cost){
+
+        showToast("TOKEN ไม่พอสำหรับการสุ่ม",true);
+
+        return;
+
+    }
+
+    spinning=true;
+
+    document.getElementById("spinButton").disabled=true;
+
+    tokenBalance-=cost;
+
+    updateTokens();
+
+    const wheel=document.getElementById("wheel");
+
+    const index=Math.floor(
+        Math.random()*fruits.length
+    );
+
+    const segment=360/fruits.length;
+
+    const target=360*8+
+        (360-index*segment-segment/2);
+
+    wheel.style.transform=
+        `rotate(${target}deg)`;
+
+    setTimeout(async()=>{
+
+        const fruit=fruits[index];
+
+        try{
+
+            const response=await apiRequest({
+
+                action:"spin",
+
+                item:{
+                    name:fruit.name,
+                    price:cost
+                }
+
+            });
+
+            if(!response.success){
+
+                throw new Error(
+                    response.message || "Spin failed"
+                );
+
+            }
+
+            const code=response.code;
+
+            myCodes.push({
+
+                code:code,
+
+                product:fruit.name,
+
+                price:cost,
+
+                createdAt:new Date().toISOString()
+
+            });
+
+            localStorage.setItem(
+                "myCodes",
+                JSON.stringify(myCodes)
+            );
+
+            document.getElementById("spinResult").innerHTML=`
+
+                <div class="code-box">
+
+                    <h3 style="color:var(--green)">
+                        🎉 ได้รับ ${escapeHTML(fruit.name)}
+                    </h3>
+
+                    <p style="color:var(--muted)">
+                        ใช้ไป ${cost} TOKEN
+                    </p>
+
+                    <div class="code">
+                        ${escapeHTML(code)}
+                    </div>
+
+                    <button
+                        class="btn btn-green"
+                        style="margin-top:10px"
+                        onclick="copyCode('${code}')">
+
+                        📋 COPY CODE
+
+                    </button>
+
+                </div>
+            `;
+
+            playSuccessSound();
+
+        }catch(error){
+
+            tokenBalance+=cost;
+
+            updateTokens();
+
+            showToast(
+                error.message || "สุ่มไม่สำเร็จ",
+                true
+            );
+
+            playErrorSound();
+
+        }
+
+        spinning=false;
+
+        document.getElementById("spinButton").disabled=false;
+
+    },5200);
+
+}
+
+
+/* ============================
+   CODES
+============================ */
+
+function openCodes(){
+
+    const container=document.getElementById("myCodes");
+
+    if(myCodes.length===0){
+
+        container.innerHTML=`
+            <div style="
+                text-align:center;
+                color:var(--muted);
+                padding:40px
+            ">
+                ยังไม่มีรหัส
+            </div>
+        `;
+
+    }else{
+
+        container.innerHTML="";
+
+        [...myCodes].reverse().forEach(item=>{
+
+            const div=document.createElement("div");
+
+            div.className="code-box";
+
+            div.innerHTML=`
+
+                <b style="color:var(--green)">
+                    ${escapeHTML(item.product)}
+                </b>
+
+                <div style="
+                    color:var(--muted);
+                    font-size:13px;
+                    margin:6px 0
+                ">
+                    ${new Date(item.createdAt)
+                        .toLocaleString("th-TH")}
+                </div>
+
+                <div class="code">
+                    ${escapeHTML(item.code)}
+                </div>
+
+                <button
+                    class="btn btn-green"
+                    style="margin-top:10px"
+                    onclick="copyCode('${item.code}')">
+
+                    📋 COPY
+
+                </button>
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+    document.getElementById("codesModal")
+        .classList.add("show");
+
+}
+
+
+async function copyCode(code){
+
+    try{
+
+        await navigator.clipboard.writeText(code);
+
+        showToast("คัดลอกรหัสแล้ว");
+
+    }catch{
+
+        showToast("ไม่สามารถคัดลอกได้",true);
+
+    }
+
+}
+
+
+/* ============================
+   TOKEN
+============================ */
+
+function updateTokens(){
+
+    document.getElementById("tokenBalance")
+        .textContent=tokenBalance.toLocaleString();
+
+    localStorage.setItem(
+        "tokenBalance",
+        tokenBalance
+    );
+
+}
+
+
+/* ============================
+   API REQUEST
+============================ */
+
+async function apiRequest(payload){
+
+    if(
+        !API_URL ||
+        API_URL.includes("ใส่_URL")
+    ){
+
+        throw new Error(
+            "ยังไม่ได้ตั้งค่า Google Apps Script URL"
+        );
+
+    }
+
+    const response=await fetch(API_URL,{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"text/plain;charset=utf-8"
+        },
+
+        body:JSON.stringify(payload)
+
+    });
+
+    if(!response.ok){
+
+        throw new Error(
+            `Server Error ${response.status}`
+        );
+
+    }
+
+    return await response.json();
+
+}
+
+
+/* ============================
+   REDEEM
+============================ */
+
+function openRedeemPage(){
+
+    window.open(
+        "redeem.html",
+        "_blank"
+    );
+
+}
+
+
+/* ============================
+   UI
+============================ */
+
+function toggleCart(){
+
+    document.getElementById("cartPanel")
+        .classList.toggle("open");
+
+}
+
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+function scrollToShop(){
+
+    document.getElementById("shop")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+function showToast(message,error=false){
+
+    const toast=document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.toggle("error",error);
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2800);
+
+}
+
+
+/* ============================
+   AUDIO
+============================ */
+
+function playSuccessSound(){
+
+    const audioCtx=
+        new (window.AudioContext||
+        window.webkitAudioContext)();
+
+    const osc=audioCtx.createOscillator();
+
+    const gain=audioCtx.createGain();
+
+    osc.frequency.setValueAtTime(
+        500,
+        audioCtx.currentTime
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+        1000,
+        audioCtx.currentTime+.3
+    );
+
+    gain.gain.setValueAtTime(
+        .15,
+        audioCtx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        audioCtx.currentTime+.6
+    );
+
+    osc.connect(gain);
+
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+
+    osc.stop(audioCtx.currentTime+.6);
+
+}
+
+
+function playErrorSound(){
+
+    const audioCtx=
+        new (window.AudioContext||
+        window.webkitAudioContext)();
+
+    const osc=audioCtx.createOscillator();
+
+    const gain=audioCtx.createGain();
+
+    osc.type="sawtooth";
+
+    osc.frequency.setValueAtTime(
+        180,
+        audioCtx.currentTime
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+        70,
+        audioCtx.currentTime+.35
+    );
+
+    gain.gain.setValueAtTime(
+        .15,
+        audioCtx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        audioCtx.currentTime+.4
+    );
+
+    osc.connect(gain);
+
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+
+    osc.stop(audioCtx.currentTime+.4);
+
+}
+
+
+/* ============================
+   SECURITY
+============================ */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+</script>
+
+</body>
+</html>

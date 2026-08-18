@@ -1,1 +1,85 @@
+name: Deploy Website
 
+on:
+  workflow_dispatch:
+    inputs:
+      project_path:
+        description: "Website folder"
+        required: true
+        default: "."
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Verify project
+        shell: bash
+        run: |
+          set -e
+
+          PROJECT="${{ inputs.project_path }}"
+
+          if [ ! -d "$PROJECT" ]; then
+            echo "Project directory not found"
+            exit 1
+          fi
+
+          echo "Project:"
+          echo "$PROJECT"
+
+          find "$PROJECT" -maxdepth 3 -type f | head -200
+
+      - name: Prepare site
+        shell: bash
+        run: |
+          set -e
+
+          PROJECT="${{ inputs.project_path }}"
+
+          rm -rf _site
+
+          mkdir -p _site
+
+          cp -R "$PROJECT"/. _site/
+
+          if [ ! -f "_site/index.html" ]; then
+            echo "index.html not found"
+            exit 1
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - build
+
+    steps:
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

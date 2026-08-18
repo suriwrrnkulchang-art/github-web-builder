@@ -558,3 +558,177 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+
+
+
+
+const scanButton =
+  document.getElementById("scanButton");
+
+const createButton =
+  document.getElementById("createButton");
+
+const result =
+  document.getElementById("result");
+
+const output =
+  document.getElementById("output");
+
+let lastScan = null;
+
+function value(id) {
+  return document
+    .getElementById(id)
+    .value
+    .trim();
+}
+
+function show(data) {
+  result.classList.remove("hidden");
+
+  output.textContent =
+    JSON.stringify(data, null, 2);
+}
+
+scanButton.addEventListener(
+  "click",
+  async () => {
+
+    createButton.disabled = true;
+
+    show({
+      status: "กำลังตรวจสอบ..."
+    });
+
+    try {
+
+      /*
+       * installationId ต้องได้มาจาก
+       * GitHub App authentication
+       *
+       * ห้ามให้ user พิมพ์ private token
+       */
+      const installationId =
+        window.githubInstallationId;
+
+      if (!installationId) {
+        throw new Error(
+          "ยังไม่ได้เชื่อมต่อ GitHub App"
+        );
+      }
+
+      const response =
+        await fetch("/api/scan", {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            installationId,
+
+            owner: value("owner"),
+
+            repo: value("repo"),
+
+            branch:
+              value("branch") || "main"
+          })
+        });
+
+      const data =
+        await response.json();
+
+      lastScan = data;
+
+      show(data);
+
+      if (data.valid) {
+        createButton.disabled = false;
+      }
+
+    } catch (error) {
+
+      show({
+        error: error.message
+      });
+
+    }
+  }
+);
+
+createButton.addEventListener(
+  "click",
+  async () => {
+
+    if (!lastScan?.valid) {
+      return;
+    }
+
+    createButton.disabled = true;
+
+    try {
+
+      const response =
+        await fetch("/api/projects", {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
+            installationId:
+              window.githubInstallationId,
+
+            owner:
+              value("owner"),
+
+            repo:
+              value("repo"),
+
+            branch:
+              value("branch") || "main",
+
+            root:
+              value("root"),
+
+            name:
+              value("name"),
+
+            entrypoint:
+              value("entrypoint") ||
+              "index.html"
+          })
+        });
+
+      const data =
+        await response.json();
+
+      show({
+        success: true,
+
+        message:
+          "สร้างเว็บไซต์สำเร็จ",
+
+        project: data
+      });
+
+    } catch (error) {
+
+      show({
+        error: error.message
+      });
+
+    } finally {
+
+      createButton.disabled = false;
+
+    }
+  }
+);
